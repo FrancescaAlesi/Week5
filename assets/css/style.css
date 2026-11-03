@@ -16,7 +16,9 @@ body {
 
 /* Header */
 #site-header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url("../IMG/header-bg.jpg");
@@ -100,7 +102,7 @@ main section {
 }
 
 /* Titoli del main con marker */
-h2 {
+h2, h3 {
   font-size: 2rem;
   color: hsl(220, 60%, 25%);
   text-align: left;
@@ -108,17 +110,12 @@ h2 {
   font-family: "Playfair Display", Georgia, serif;
 }
 
-main section h2::before {
+main section h2::before,
+#progetti h2::before{
   content: "\2756";
   color: hsl(45, 90%, 50%);
-}
-
-h3 {
-  font-size: 1.2rem;
-  color: hsl(220, 30%, 25%);
-  text-align: left;
-  line-height: 2.2;
-  font-family: "Playfair Display", Georgia, serif;
+  font-size: 0.9em;
+  margin-right: 6px;
 }
 
 /* Sezione "Chi sono" */
@@ -126,7 +123,6 @@ h3 {
   width: 115px;
   height: 115px;
   border: 5px solid hsl(45, 90%, 60%);
-  border-radius: 50%;
   border-radius: 50%;
   float: left;
   margin: 0 24px 12px 0;
@@ -199,17 +195,12 @@ tbody td {
   vertical-align: middle;
 }
 
-tbody td p {
+tbody td p, #paragrafo{
   margin: 4px 0 0 0;
   color: hsl(220, 30%, 40%);
   font-size: 0.9em;
 }
-
-#paragrafo {
-  color: hsl(220, 30%, 40%);
-}
-
-/* barre di livello */
+/* barre di livello
 .barra {
   width: 399px;
   height: 10px;
@@ -222,17 +213,11 @@ tbody td p {
   height: 100%;
   background-color: #f1ad02;
   border-radius: 999px;
-}
+} */
 
 /*Progetti*/
-#progetti h2::before {
-  content: "\2756";
-  color: hsl(45, 90%, 50%);
-  font-size: 0.9em;
-  margin-right: 6px;
-}
-
 .project {
+  position: relative;
   padding: 24px;
   border-radius: 6px;
   margin-bottom: 20px;
@@ -264,20 +249,19 @@ tbody td p {
   border-left: 4px solid hsl(45, 90%, 50%);
 }
 
-.project:first-of-type h3::after {
+.project:first-of-type::after {
   content: "NEW";
-  display: inline-block;
+  position: absolute;
+  top: 0; 
+  right: 0;
   padding: 2px 7px;
-  margin-left: 10px;
   background-color: hsl(0, 70%, 50%);
   color: #ffffff;
-  border-radius: 4px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  vertical-align: middle;
+  border-radius: 0 4px 0 4px;
 }
 
-.project a {
+.project a, 
+#progetti a[href="Progetti.html"]{
   display: inline-block;
   color: hsl(220, 60%, 30%);
   text-decoration: none;
@@ -297,11 +281,7 @@ tbody td p {
 #progetti a[href="Progetti.html"] {
   display: table;
   margin-left: auto;
-  color: hsl(220, 60%, 30%);
-  text-decoration: none;
-  font-weight: 700;
   border-bottom: 2px solid hsl(45, 90%, 50%);
-  padding-bottom: 2px;
   transition: color 0.2s ease;
 }
 
@@ -310,9 +290,59 @@ tbody td p {
 }
 
 /* Form contatti */
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+ 
+}
+
+.overlay[hidden]{
+  display: none;
+}
+
+.modal{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  color: #333333;
+  font-size: 1.8rem;
+  line-height: 1;
+  width: auto;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.modal .close:hover {
+  color: hsl(0, 70%, 50%);
+  background: transparent;
+}
+
 label {
   font-weight: bold;
-  color: 1px solid #d6cfbf;
+  color: hsl(220, 60%, 25%);
 }
 
 input,
@@ -330,7 +360,7 @@ textarea {
 }
 
 input:focus,
-section:focus,
+select:focus,
 textarea:focus {
   background-color: #ffffff;
   color: hsl(220, 60%, 30%);
@@ -367,6 +397,23 @@ button:hover {
   color: hsl(0, 0%, 100%);
   background-color: hsl(220, 60%, 45%);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-to-top{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: hsl(220, 60%, 30%);
+  color: #ffffff;
+  z-index: 50;
+  display: block;
+  text-align: center;
+  line-height: 48px;
+  text-decoration: none;
+  font-size: 1.5rem;
 }
 
 /* Footer */
@@ -481,25 +528,7 @@ button:hover {
     padding: 32px;
   }
 
-  input,
-  textarea,
-  select {
-    width: 60%;
-  }
-
   button {
     width: 30%;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  input,
-  textarea,
-  select {
-    width: 50%;
-  }
-
-  button {
-    width: 25%;
   }
 }
