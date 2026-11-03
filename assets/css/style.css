@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html{
+  scroll-padding-top: 420px;
+}
+
 /* tipografia di base */
 body {
   margin: 0;
